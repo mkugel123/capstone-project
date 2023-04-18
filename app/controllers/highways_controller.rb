@@ -1,0 +1,2 @@
+class HighwaysController < ApplicationController
+end

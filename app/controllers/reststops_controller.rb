@@ -1,0 +1,2 @@
+class ReststopsController < ApplicationController
+end

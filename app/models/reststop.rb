@@ -1,0 +1,2 @@
+class Reststop < ApplicationRecord
+end
