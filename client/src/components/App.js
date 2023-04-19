@@ -1,8 +1,10 @@
 import React from 'react';
+import Home from './Home';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
 import NavBar from './NavBar';
 import { UserProvider } from "../context/user";
+import { Route, Switch } from "react-router-dom"
 
 function App() {
 
@@ -19,11 +21,22 @@ function App() {
     <div>
       <UserProvider>
         <NavBar/>
-        <SignUp />
-        <SignIn />
+        <Switch>
+          <Route path="/" exact>
+            <Home />
+          </Route>
+          <Route path="/signup" exact>
+            <SignUp />
+          </Route>
+          <Route path="/login" exact>
+            <SignIn />
+          </Route>
+        </Switch>
       </UserProvider> 
     </div>
   );
+
 }
+
 
 export default App;

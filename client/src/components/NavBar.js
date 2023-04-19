@@ -2,6 +2,7 @@ import * as React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { UserContext } from '../context/user';
+import { Link } from 'react-router-dom'
 
 export default function NavBar() {
   const [value, setValue] = React.useState(1);
@@ -16,9 +17,9 @@ export default function NavBar() {
     <>
       <Tabs value={value} onChange={handleChange}>
         <Tab label={user ? user.username : "Hi"} disabled />
-        <Tab label="Active" />
-        <Tab label="Disabled" />
-        <Tab label="Active" />
+        <Tab label="Home" component={Link} to={"/"}/>
+        <Tab label="Sign Up" component={Link} to={"/signup"}/>
+        <Tab label="Log In" component={Link} to={"/login"}/>
       </Tabs>
     </>
   );
