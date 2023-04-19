@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
-  
+  skip_before_action :authorized, only: :create
   def create
     user = User.create!(user_params)
+    session[:user_id] = user.id
     render json: user, status: :created
   end
 
@@ -11,7 +12,7 @@ class UsersController < ApplicationController
     if user
       render json: user
     else
-      render json: { error: "Not authorized" }, status: :unauthorized
+      render json: { errors: ["Not authorized"] }, status: :unauthorized
     end
   end
 

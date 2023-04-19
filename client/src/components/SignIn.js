@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,6 +10,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { UserContext } from '../context/user';
 
 const theme = createTheme();
 
@@ -20,6 +21,10 @@ export default function SignIn() {
     password: ""
   })
 
+  const [errors, setErrors] = useState([])
+
+  const { setUser } = useContext(UserContext)
+
   function handleSubmit(event) {
     event.preventDefault();
     fetch("/login", {
@@ -29,8 +34,13 @@ export default function SignIn() {
       },
       body: JSON.stringify(formData),
     })
-      .then((r) => r.json())
-      .then((user) => console.log(user));
+    .then((response) => {
+      if (response.ok) {
+        response.json().then((user) => setUser(user));
+      } else {
+        response.json().then((errorData) => setErrors(errorData.errors));
+      }
+    })
   }
 
   function handleChange(event){
@@ -79,6 +89,13 @@ export default function SignIn() {
               type="password"
               value={formData.password}
             />
+            {errors.length > 0 && (
+              <ul style={{ color: "red" }}>
+                {errors.map((error) => (
+                  <li key={error}>{error}</li>
+                ))}
+              </ul>
+            )}
             <Button
               type="submit"
               fullWidth

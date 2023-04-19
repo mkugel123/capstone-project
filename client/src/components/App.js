@@ -5,6 +5,16 @@ import NavBar from './NavBar';
 import { UserProvider } from "../context/user";
 
 function App() {
+
+  // useEffect(() => {
+  //   fetch("/me")
+  //   .then(res => {
+  //     if(res.ok){
+  //       res.json().then(user => console.log(user))
+  //     }
+  //   })
+  // },[])
+
   return (
     <div>
       <UserProvider>

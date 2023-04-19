@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -9,15 +9,21 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { UserContext } from '../context/user';
 
 const theme = createTheme();
 
 export default function SignUp() {
+
   const [formData, setFormData] = useState({
     username: "",
     password: "",
     password_confirmation: ""
   })
+
+  const [errors, setErrors] = useState([])
+
+  const { setUser } = useContext(UserContext)
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -28,8 +34,13 @@ export default function SignUp() {
       },
       body: JSON.stringify(formData),
     })
-      .then((r) => r.json())
-      .then((newUser) => console.log(newUser));
+    .then((response) => {
+      if (response.ok) {
+        response.json().then((newUser) => setUser(newUser));
+      } else {
+        response.json().then((errorData) => setErrors(errorData.errors));
+      }
+    })
   }
 
   function handleChange(event){
@@ -93,6 +104,13 @@ export default function SignUp() {
                 />
               </Grid>
             </Grid>
+            {errors.length > 0 && (
+              <ul style={{ color: "red" }}>
+                {errors.map((error) => (
+                  <li key={error}>{error}</li>
+                ))}
+              </ul>
+            )}
             <Button
               type="submit"
               fullWidth
