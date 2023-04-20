@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_18_142408) do
+ActiveRecord::Schema.define(version: 2023_04_20_154949) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,19 +22,20 @@ ActiveRecord::Schema.define(version: 2023_04_18_142408) do
   end
 
   create_table "reststops", force: :cascade do |t|
-    t.integer "highwayId"
-    t.boolean "hasGas"
-    t.boolean "hasRestroom"
-    t.boolean "hasStore"
+    t.integer "highway_id"
+    t.boolean "has_gas"
+    t.boolean "has_restroom"
+    t.boolean "has_store"
     t.float "rating"
-    t.string "nearestExit"
+    t.string "nearest_exit"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "confirmations"
   end
 
   create_table "reviews", force: :cascade do |t|
-    t.integer "userId"
-    t.integer "reststopId"
+    t.integer "user_id"
+    t.integer "reststop_id"
     t.text "content"
     t.string "title"
     t.integer "rating"
