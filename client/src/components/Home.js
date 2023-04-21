@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Reststops from './Reststops';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
@@ -14,9 +15,13 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function Home() {
+function Home() {
 
   const [highways, setHighways] = useState([])
+  const [reststops, setRestStops] = useState([])
+
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     fetch("/highways")
@@ -24,20 +29,38 @@ export default function Home() {
     .then(highways => setHighways(highways))
   },[])
 
+  function handleHighwayClick(highway){
+    fetch(`highways/${highway.id}/reststops`)
+    .then((res) => res.json())
+    .then(reststops=>setRestStops(reststops))
+    .then(setOpen(true))
+  }
+
   const listOfHighways = highways.map((highway) => {
     return(
-      <Item component={Button} key={highway.id}>{highway.name}</Item>
+      <Item component={Button} key={highway.id} onClick={()=>handleHighwayClick(highway)}>
+        {highway.name}
+      </Item>
     )
   })
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Typography sx={{ textAlign: 'center' }} variant="h2" gutterBottom>
-        Highways
-      </Typography>
-      <Stack spacing={2}>
-        {listOfHighways}
-      </Stack>
-    </Box>
+    <>
+      <Box sx={{ width: '100%' }}>
+        <Typography sx={{ textAlign: 'center' }} variant="h2" gutterBottom>
+          Highways
+        </Typography>
+        <Stack spacing={2}>
+          {listOfHighways}
+        </Stack>
+      </Box>
+      <Reststops 
+        open={open}
+        handleClose={handleClose}
+        reststops={reststops}
+      />
+    </>
   );
 }
+
+export default Home

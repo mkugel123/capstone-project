@@ -7,8 +7,13 @@ class ReststopsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found_response
 
   def index
-    reststops = Reststop.all
-    render json: reststops
+    if params[:highway_id]
+      highway = Highway.find(params[:highway_id])
+      reststops = highway.reststops
+    else
+      reststops = Reststop.all
+    end
+      render json: reststops
   end
 
   def show

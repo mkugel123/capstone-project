@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :reviews
-  resources :highways
+  resources :highways do
+    resources :reststops, only: [:index]
+  end
   resources :reststops
 
   post "/signup", to: "users#create"
