@@ -18,6 +18,8 @@ const style = {
 
 function Reststops({ open, handleClose, reststops }){
 
+  // const highwayName = reststops[0].highway.name
+
   const listOfReststops = reststops.map((reststop) => {
     return(
       <ReststopCard 
@@ -36,9 +38,9 @@ function Reststops({ open, handleClose, reststops }){
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {/* <Typography variant="h3" component="div">
-            {highway.name}:
-          </Typography> */}
+          <Typography variant="h4" component="div">
+            {/* {highwayName}: */}
+          </Typography>
           {listOfReststops}
         </Box>
       </Modal>

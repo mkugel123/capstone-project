@@ -30,10 +30,10 @@ function Home() {
   },[])
 
   function handleHighwayClick(highway){
+    setOpen(true)
     fetch(`highways/${highway.id}/reststops`)
     .then((res) => res.json())
     .then(reststops=>setRestStops(reststops))
-    .then(setOpen(true))
   }
 
   const listOfHighways = highways.map((highway) => {

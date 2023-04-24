@@ -1,26 +1,26 @@
-import React from 'react';
+import React, { useEffect} from 'react';
 import Home from './Home';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
 import NavBar from './NavBar';
-import { UserProvider } from "../context/user";
+import { UserContext } from "../context/user";
 import { Route, Switch } from "react-router-dom"
-import Reststops from './Reststops';
 
 function App() {
 
-  // useEffect(() => {
-  //   fetch("/me")
-  //   .then(res => {
-  //     if(res.ok){
-  //       res.json().then(user => console.log(user))
-  //     }
-  //   })
-  // },[])
+  const { setUser } = React.useContext(UserContext)
+
+  useEffect(() => {
+    fetch("/me")
+    .then(res => {
+      if(res.ok){
+        res.json().then(user => setUser(user))
+      }
+    })
+  },[setUser])
 
   return (
     <div>
-      <UserProvider>
         <NavBar/>
         <Switch>
           <Route path="/" exact>
@@ -33,7 +33,6 @@ function App() {
             <SignIn />
           </Route>
         </Switch>
-      </UserProvider> 
     </div>
   );
 
