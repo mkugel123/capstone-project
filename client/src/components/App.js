@@ -3,6 +3,7 @@ import Home from './Home';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
 import NavBar from './NavBar';
+import AddReststop from './AddReststop';
 import { UserContext } from "../context/user";
 import { Route, Switch } from "react-router-dom"
 
@@ -31,6 +32,9 @@ function App() {
           </Route>
           <Route path="/login" exact>
             <SignIn />
+          </Route>
+          <Route path="/addreststop" exact>
+            <AddReststop />
           </Route>
         </Switch>
     </div>

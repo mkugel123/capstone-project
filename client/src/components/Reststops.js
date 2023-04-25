@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -17,8 +17,6 @@ const style = {
 };
 
 function Reststops({ open, handleClose, reststops, onReststopDelete, onReststopEdit }){
-
-  // const highwayName = reststops[0].highway.name
 
   const listOfReststops = reststops.map((reststop) => {
     return(

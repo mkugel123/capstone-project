@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
+import { Link } from 'react-router-dom'
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -63,6 +64,7 @@ function Home() {
   return (
     <>
       <Box sx={{ width: '100%' }}>
+        <Button sx={{margin: "10px"}} variant="contained" component={Link} to={"/addreststop"}>Add Reststop</Button>
         <Typography sx={{ textAlign: 'center' }} variant="h2" gutterBottom>
           Highways
         </Typography>
