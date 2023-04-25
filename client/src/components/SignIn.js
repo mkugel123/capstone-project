@@ -3,7 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -11,6 +10,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { UserContext } from '../context/user';
+import { Link, useHistory } from 'react-router-dom'
+
 
 const theme = createTheme();
 
@@ -20,6 +21,8 @@ export default function SignIn() {
     username: "",
     password: ""
   })
+
+  const history = useHistory()
 
   const [errors, setErrors] = useState([])
 
@@ -36,7 +39,7 @@ export default function SignIn() {
     })
     .then((response) => {
       if (response.ok) {
-        response.json().then((user) => setUser(user));
+        response.json().then((user) => setUser(user)).then(history.push("/"));
       } else {
         response.json().then((errorData) => setErrors(errorData.errors));
       }
@@ -106,7 +109,7 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link to="/signup">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

@@ -1,7 +1,6 @@
 class ReststopsController < ApplicationController
 
-  skip_before_action :authorized, only: :index
-
+  skip_before_action :authorized, only: [:index, :create]
 
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
   rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found_response
@@ -37,9 +36,8 @@ class ReststopsController < ApplicationController
     if reststop[:confirmations] > 1
       render json: { errors: ["This reststop has been confirmed by other users"] }, status: :unprocessable_entity
     else
+      render json: reststop, status: :ok
       reststop.delete
-      render json: reststop
-      head :ok
     end
   end
 

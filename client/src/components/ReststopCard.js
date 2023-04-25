@@ -10,7 +10,7 @@ import Checkbox from '@mui/material/Checkbox';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 
-function ReststopCard({reststop}) {
+function ReststopCard({reststop, onReststopDelete, onReststopEdit}) {
 
   const {has_gas, has_restroom, has_store, confirmations} = reststop
 
@@ -33,13 +33,14 @@ function ReststopCard({reststop}) {
       ...formData,
       [e.target.name]: e.target.checked
     })
+    console.log(formData)
   }
   
   function handleDelete() {
     fetch(`/reststops/${reststop.id}`, {method: 'DELETE'})
     .then(res => {
       if (res.ok) {
-        res.json().then(reststop => console.log(reststop.id))
+        res.json().then(deletedReststop => onReststopDelete(deletedReststop))
       } else {
         res.json().then(errorData => setErrors(errorData.errors))
       }
@@ -48,9 +49,21 @@ function ReststopCard({reststop}) {
 
   function handleSubmit(e) {
     e.preventDefault()
-    console.log("submit")
+    fetch(`/reststops/${reststop.id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(formData),
+      headers: {
+        'Content-type': 'application/json',
+      },
+    })
+    .then(res => {
+      if (res.ok) {
+        res.json().then(updatedReststop => onReststopEdit(updatedReststop))
+      } else {
+        res.json().then(errorData => setErrors(errorData.errors))
+      }
+    })
     setIsEditable(false)
-
   }
 
 

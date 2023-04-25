@@ -36,6 +36,22 @@ function Home() {
     .then(reststops=>setRestStops(reststops))
   }
 
+  function handleReststopDelete(deletedReststop) {
+    const updatedReststops = reststops.filter(reststop => reststop.id !== deletedReststop.id)
+    setRestStops(updatedReststops)
+  }
+
+  function handleReststopEdit(updatedReststop) {
+    const updatedReststops = reststops.map((reststop) => {
+      if(reststop.id === updatedReststop.id){
+        return updatedReststop
+      } else {
+        return reststop
+      }
+    })
+    setRestStops(updatedReststops)
+  }
+
   const listOfHighways = highways.map((highway) => {
     return(
       <Item component={Button} key={highway.id} onClick={()=>handleHighwayClick(highway)}>
@@ -58,6 +74,8 @@ function Home() {
         open={open}
         handleClose={handleClose}
         reststops={reststops}
+        onReststopDelete={handleReststopDelete}
+        onReststopEdit={handleReststopEdit}
       />
     </>
   );

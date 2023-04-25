@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2023_04_20_154949) do
     t.string "nearest_exit"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "confirmations"
+    t.integer "confirmations", default: 1
   end
 
   create_table "reviews", force: :cascade do |t|

@@ -16,7 +16,7 @@ const style = {
   p: 4,
 };
 
-function Reststops({ open, handleClose, reststops }){
+function Reststops({ open, handleClose, reststops, onReststopDelete, onReststopEdit }){
 
   // const highwayName = reststops[0].highway.name
 
@@ -25,6 +25,8 @@ function Reststops({ open, handleClose, reststops }){
       <ReststopCard 
         key={reststop.id}
         reststop={reststop}
+        onReststopDelete={onReststopDelete}
+        onReststopEdit={onReststopEdit}
       />
     )
   })
