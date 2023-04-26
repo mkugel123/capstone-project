@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_20_154949) do
+ActiveRecord::Schema.define(version: 2023_04_26_153829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,7 +26,6 @@ ActiveRecord::Schema.define(version: 2023_04_20_154949) do
     t.boolean "has_gas"
     t.boolean "has_restroom"
     t.boolean "has_store"
-    t.float "rating"
     t.string "nearest_exit"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

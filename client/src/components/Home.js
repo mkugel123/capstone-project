@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Reststops from './Reststops';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -16,19 +16,19 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-function Home() {
+function Home({ highways }) {
 
-  const [highways, setHighways] = useState([])
+  // const [highways, setHighways] = useState([])
   const [reststops, setRestStops] = useState([])
 
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
 
-  useEffect(() => {
-    fetch("/highways")
-    .then(res => res.json())
-    .then(highways => setHighways(highways))
-  },[])
+  // useEffect(() => {
+  //   fetch("/highways")
+  //   .then(res => res.json())
+  //   .then(highways => setHighways(highways))
+  // },[])
 
   function handleHighwayClick(highway){
     setOpen(true)

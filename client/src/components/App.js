@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import Home from './Home';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
@@ -20,12 +20,26 @@ function App() {
     })
   },[setUser])
 
+  const [highways, setHighways] = useState([])
+
+  useEffect(() => {
+    fetch("/highways")
+    .then(res => res.json())
+    .then(highways => setHighways(highways))
+  },[])
+
+  function handleAddHighwaySubmit(newHighway) {
+    setHighways([...highways, newHighway])
+  }
+
   return (
     <div>
         <NavBar/>
         <Switch>
           <Route path="/" exact>
-            <Home />
+            <Home 
+              highways={highways}
+            />
           </Route>
           <Route path="/signup" exact>
             <SignUp />
@@ -34,7 +48,10 @@ function App() {
             <SignIn />
           </Route>
           <Route path="/addreststop" exact>
-            <AddReststop />
+            <AddReststop 
+              highways={highways}
+              onAddHighwaySubmit={handleAddHighwaySubmit}
+            />
           </Route>
         </Switch>
     </div>

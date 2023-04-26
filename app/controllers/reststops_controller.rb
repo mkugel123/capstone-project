@@ -1,6 +1,6 @@
 class ReststopsController < ApplicationController
 
-  skip_before_action :authorized, only: [:index, :create]
+  skip_before_action :authorized, only: :index
 
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
   rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found_response
@@ -44,7 +44,7 @@ class ReststopsController < ApplicationController
   private
 
   def reststop_params
-    params.permit(:highway_id, :has_gas, :has_restroom, :has_store, :rating, :nearest_exit, :confirmations)
+    params.permit(:highway_id, :has_gas, :has_restroom, :has_store, :nearest_exit, :confirmations)
   end
 
   def render_record_not_found_response

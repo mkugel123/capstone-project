@@ -18,6 +18,8 @@ const style = {
 
 function Reststops({ open, handleClose, reststops, onReststopDelete, onReststopEdit }){
 
+  console.log(reststops)
+
   const listOfReststops = reststops.map((reststop) => {
     return(
       <ReststopCard 
