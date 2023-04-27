@@ -1,9 +1,8 @@
-class HighwaysController < ApplicationController
+class CategoriesController < ApplicationController
 
   skip_before_action :authorized, only: :index
 
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
-  rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found_response
 
   def index
     highways = Highway.all
@@ -36,10 +35,6 @@ class HighwaysController < ApplicationController
 
   def highway_params
     params.permit(:name)
-  end
-
-  def render_record_not_found_response
-    render json: { errors: ["Highway not found"]}, status: :not_found
   end
 
   def render_unprocessable_entity_response(invalid)

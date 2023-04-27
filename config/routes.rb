@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  resources :reviews
-  resources :highways do
-    resources :reststops, only: [:index]
-  end
-  resources :reststops
+
+  resources :categories, only: [:index, :create]
+  resources :listings
+
+
 
   post "/signup", to: "users#create"
   post "/login", to: "sessions#create"
