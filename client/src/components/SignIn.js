@@ -36,7 +36,7 @@ export default function SignIn() {
     })
     .then((response) => {
       if (response.ok) {
-        response.json().then((user) => setUser(user)).then(history.push("/"));
+        response.json().then((user) => setUser(user)).then(history.push("/my_listings"));
       } else {
         response.json().then((errorData) => setErrors(errorData.errors));
       }

@@ -5,35 +5,18 @@ class CategoriesController < ApplicationController
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
   def index
-    highways = Highway.all
-    render json: highways
-  end
-
-  def show
-    highway = Highway.find(params[:id])
-    render json: highway
+    categories = Category.all
+    render json: categories
   end
   
   def create
-    highway = Highway.create!(highway_params)
-    render json: highway, status: :created
-  end
-
-  def update
-    highway = Highway.find(params[:id])
-    highway.update!(highway_params)
-    render json: highway, status: :created
-  end
-
-  def delete
-    highway = Highway.find(params[:id])
-    highway.destroy
-    head :ok
+    category = Category.create!(category_params)
+    render json: category, status: :created
   end
 
   private
 
-  def highway_params
+  def category_params
     params.permit(:name)
   end
 

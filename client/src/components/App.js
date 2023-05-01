@@ -3,6 +3,7 @@ import Home from './Home';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
 import NavBar from './NavBar';
+import MyListings from './MyListings';
 import { UserContext } from "../context/user";
 import { Route, Switch } from "react-router-dom"
 
@@ -19,12 +20,37 @@ function App() {
     })
   },[setUser])
 
+  const [listings, setListings] = useState([])
+
+  useEffect(() => {
+    fetch("/listings")
+    .then(res => res.json())
+    .then(listings => setListings(listings))
+  }, [])
+
+  const [categories, setCategories] = useState([])
+
+  useEffect(() => {
+    fetch("/categories")
+    .then(res => res.json())
+    .then(categories => setCategories(categories))
+  }, [])
+
+
   return (
     <div>
         <NavBar/>
         <Switch>
           <Route path="/" exact>
-            <Home />
+            <Home 
+              listings={listings}
+              categories={categories}
+            />
+          </Route>
+          <Route path="/my_listings" exact>
+            <MyListings 
+              listings={listings}
+            />
           </Route>
           <Route path="/signup" exact>
             <SignUp />
