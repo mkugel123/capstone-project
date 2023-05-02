@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   resources :categories, only: [:index, :create]
   resources :listings
+  resources :users_categories, only: [:index]
 
 
 

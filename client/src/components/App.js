@@ -34,7 +34,7 @@ function App() {
     fetch("/categories")
     .then(res => res.json())
     .then(categories => setCategories(categories))
-  }, [])
+  }, [setCategories])
 
 
   return (
@@ -50,6 +50,9 @@ function App() {
           <Route path="/my_listings" exact>
             <MyListings 
               listings={listings}
+              setListings={setListings}
+              categories={categories}
+              setCategories={setCategories}
             />
           </Route>
           <Route path="/signup" exact>

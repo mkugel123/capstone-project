@@ -6,6 +6,6 @@ class User < ApplicationRecord
 
   has_secure_password
   has_many :listings
-  has_many :users, through: :listings
+  has_many :categories, through: :listings
 
 end

@@ -34,7 +34,7 @@ class ListingsController < ApplicationController
   private
 
   def listing_params
-    params.permit(:title, :image, :content, :price, :user_id, :category_id)
+    params.permit(:title, :image, :content, :price, :user_id, :category_id, :id)
   end
 
   def render_unprocessable_entity_response(invalid)

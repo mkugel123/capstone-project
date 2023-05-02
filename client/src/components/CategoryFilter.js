@@ -12,7 +12,7 @@ function CategoryFilter({categories, filterBy, setFilterBy }) {
 
   const menuItems = categories.map((category) => {
     return(
-      <MenuItem key={category.id} value={category.name}>{category.name}</MenuItem>
+      <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>
     )
   })
 

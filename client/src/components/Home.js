@@ -11,7 +11,7 @@ function Home({ listings, categories }) {
     if (filterBy === "All") {
       return true;
     } else {
-      return listing.category.name === filterBy;
+      return listing.category.id === filterBy;
     }
   });
 
