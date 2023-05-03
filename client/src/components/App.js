@@ -34,7 +34,7 @@ function App() {
     fetch("/categories")
     .then(res => res.json())
     .then(categories => setCategories(categories))
-  }, [setCategories])
+  }, [])
 
 
   return (

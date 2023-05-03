@@ -21,8 +21,12 @@ class ListingsController < ApplicationController
 
   def update
     listing = Listing.find(params[:id])
-    listing.update!(listing_params)
-    render json: listing, status: :created
+    if listing.user_id == session[:user_id]
+      listing.update!(listing_params)
+      render json: listing, status: :created
+    else
+      render json: {errors: ["This post does not belong to you"]}, status: :unauthorized
+    end
   end
 
   def destroy
