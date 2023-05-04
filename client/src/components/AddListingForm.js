@@ -25,8 +25,6 @@ function AddListingForm({ addFormOpen, handleClose, onAddListingSubmit, categori
 
   const { user } = useContext(UserContext)
 
-  console.log("Add Form Rendered")
-
   const [formData, setFormData] = useState({category_id: '', user_id: user.id})
   const [errors, setErrors] = useState([])
 
@@ -41,7 +39,6 @@ function AddListingForm({ addFormOpen, handleClose, onAddListingSubmit, categori
       ...formData,
       [e.target.name]: e.target.value
     })
-    console.log(formData)
   }
 
   function handleSubmit(e) {

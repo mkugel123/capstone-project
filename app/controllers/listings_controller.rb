@@ -5,7 +5,7 @@ class ListingsController < ApplicationController
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
   def index
-    listings = Listing.all
+    listings = Listing.all.order('title')
     render json: listings
   end
 
@@ -31,8 +31,12 @@ class ListingsController < ApplicationController
 
   def destroy
     listing = Listing.find(params[:id])
-    listing.delete
-    head :ok
+    if listing.user_id == session[:user_id]
+      listing.delete
+      render json: listing, status: :ok
+    else
+      render json: {errors: ["This post does not belong to you"]}, status: :unauthorized
+    end
   end
 
   private

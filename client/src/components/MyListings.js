@@ -1,19 +1,28 @@
-import React, {useState, useEffect} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import ListingCard from './ListingCard';
 import { Stack, CardActions, Button } from '@mui/material';
 import CategoryFilter from './CategoryFilter';
 import EditListingForm from './EditListingForm';
 import AddListingForm from './AddListingForm';
+import { UserContext } from '../context/user';
 
 function MyListings({ categories, setCategories, listings, setListings }) {
 
+  const {user} = useContext(UserContext)
+
+  
+
+  // const myListings = listings.filter(listing=>user.id === listing.user_id))
+
   //state for user specific listings and categories
   const [myListings, setMyListings] = useState([])
-  const [myCategories, setMyCategories] = useState([])
-
-  //fetch user specific listings and categories and update state
-  useEffect(() => fetch("/users_listings").then(res=>res.json()).then(listings => setMyListings(listings)), [listings])
-  useEffect(() => fetch("/users_categories").then(res=>res.json()).then(categories=>setMyCategories(categories)), [categories])
+  
+  useEffect(() => {
+    if (user) {
+      const filtered = listings.filter(listing=>user.id === listing.user_id);
+      setMyListings(filtered);
+    }
+  }, [user, listings]);
 
   //state for selected category
   const [filterBy, setFilterBy] = useState('All')
@@ -65,6 +74,13 @@ function MyListings({ categories, setCategories, listings, setListings }) {
     setCategories(updatedCategories)
   }
 
+  function handleListingDelete(id) {
+    fetch(`/listings/${id}`, {method: 'DELETE'})
+    .then(res=>res.json())
+    .then(deletedListing=>setListings(listings.filter(listing => listing.id !== deletedListing.id)))
+  }
+  // setListings(listings.filter(listing => listing.id !== deletedListing.id))
+
   //define listings to diplay based off of selected category
   const listingsToDisplay = myListings.filter((listing) => {
     if (filterBy === "All") {
@@ -82,8 +98,8 @@ function MyListings({ categories, setCategories, listings, setListings }) {
         listing={listing}
       >
         <CardActions>
-          <Button size="small" onClick={()=>handleEditFormOpen()}>Edit</Button>
-          <Button size="small">Delete</Button>
+          <Button size="small" onClick={()=>handleEditFormOpen(listing.id)}>Edit</Button>
+          <Button size="small" onClick={()=>handleListingDelete(listing.id)}>Delete</Button>
         </CardActions>
       </ListingCard>
     )
@@ -91,8 +107,9 @@ function MyListings({ categories, setCategories, listings, setListings }) {
 
   return (
     <>
+      <h1 style={{textAlign: "center"}}>My Listings</h1>
       <CategoryFilter 
-        categories={myCategories}
+        categories={categories}
         filterBy={filterBy}
         setFilterBy={setFilterBy}
       />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Home from './Home';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
@@ -9,7 +9,7 @@ import { Route, Switch } from "react-router-dom"
 
 function App() {
 
-  const { setUser } = React.useContext(UserContext)
+  const { setUser } = useContext(UserContext)
 
   useEffect(() => {
     fetch("/me")
@@ -23,6 +23,7 @@ function App() {
   const [listings, setListings] = useState([])
 
   useEffect(() => {
+    console.log("fetching listings")
     fetch("/listings")
     .then(res => res.json())
     .then(listings => setListings(listings))

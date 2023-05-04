@@ -17,7 +17,10 @@ const theme = createTheme();
 
 export default function SignIn() {
 
-  const [formData, setFormData] = useState({})
+  const [formData, setFormData] = useState({
+    username: "",
+    password: ""
+  })
 
   const history = useHistory()
 

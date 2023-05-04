@@ -17,8 +17,6 @@ const style = {
 
 function EditListingForm({ editFormOpen, handleClose, listingId, onEditListingSubmit }){
 
-  console.log("Edit Form Rendered")
-
   const [formData, setFormData] = useState({})
   const [errors, setErrors] = useState([])
 

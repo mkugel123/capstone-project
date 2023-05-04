@@ -5,7 +5,7 @@ class CategoriesController < ApplicationController
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
   def index
-    categories = Category.all
+    categories = Category.all.order('name')
     render json: categories
   end
   

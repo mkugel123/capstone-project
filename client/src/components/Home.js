@@ -26,6 +26,7 @@ function Home({ listings, categories }) {
 
   return (
     <>
+      <h1 style={{textAlign: "center"}}>Home</h1>
       <CategoryFilter 
         categories={categories}
         filterBy={filterBy}
