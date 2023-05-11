@@ -6,7 +6,6 @@ import { UserContext } from '../context/user';
 import { Link, useHistory } from 'react-router-dom'
 
 export default function NavBar() {
-  const [value, setValue] = React.useState(1);
 
   const { user, setUser } = React.useContext(UserContext)
   const history = useHistory()
@@ -17,13 +16,9 @@ export default function NavBar() {
     .then(history.push("/"))
   }
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
   return (
     <>
-      <Tabs value={value} onChange={handleChange}>
+      <Tabs>
         <Tab label={user ? user.username : "Hi"} disabled />
         <Tab label="Home" component={Link} to={"/"}/>
         {user ? <Tab label="Log Out" component={Button} onClick={handleLogOut}/> : <Tab label="Log In" component={Link} to={"/login"}/>}

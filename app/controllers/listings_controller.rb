@@ -1,6 +1,6 @@
 class ListingsController < ApplicationController
 
-  skip_before_action :authorized
+  skip_before_action :authorized, only: [:index]
 
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
@@ -15,8 +15,11 @@ class ListingsController < ApplicationController
   end
   
   def create
-    listing = Listing.create!(listing_params)
+    listing = Listing.new(listing_params)
+    listing.user_id = session[:user_id]
+    listing.save!
     render json: listing, status: :created
+
   end
 
   def update
@@ -42,7 +45,7 @@ class ListingsController < ApplicationController
   private
 
   def listing_params
-    params.permit(:title, :image, :content, :price, :user_id, :category_id, :id)
+    params.permit(:title, :image, :content, :price, :category_id)
   end
 
   def render_unprocessable_entity_response(invalid)

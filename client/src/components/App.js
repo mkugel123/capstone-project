@@ -9,7 +9,24 @@ import { Route, Switch } from "react-router-dom"
 
 function App() {
 
-  const { setUser } = useContext(UserContext)
+  const [categories, setCategories] = useState([])
+  const [listings, setListings] = useState([])
+
+  useEffect(() => {
+    fetch("/categories")
+    .then(res => res.json())
+    .then(categories => setCategories(categories))
+  }, [])
+
+  useEffect(() => {
+    const allListings = categories.reduce(
+      (accumulator, currentValue) => [...accumulator, ...currentValue.listings],
+      []
+    )
+    setListings(allListings)
+  }, [categories])
+
+  const { setUser, user } = useContext(UserContext)
 
   useEffect(() => {
     fetch("/me")
@@ -18,25 +35,32 @@ function App() {
         res.json().then(user => setUser(user))
       }
     })
-  },[setUser])
-
-  const [listings, setListings] = useState([])
-
-  useEffect(() => {
-    console.log("fetching listings")
-    fetch("/listings")
-    .then(res => res.json())
-    .then(listings => setListings(listings))
   }, [])
 
-  const [categories, setCategories] = useState([])
+  function handleAddCategorySubmit(newCategory) {
+    const updatedCategories = [...categories, newCategory]
+    setCategories(updatedCategories)
+  }
 
-  useEffect(() => {
-    fetch("/categories")
-    .then(res => res.json())
-    .then(categories => setCategories(categories))
-  }, [])
+  function handleAddListingSubmit(newListing) {
+    const updatedListings = [...listings, newListing]
+    setListings(updatedListings)
+  }
 
+  function handleEditListingSubmit(updatedListing) {
+    const updatedListings = listings.map((listing) => {
+      if(listing.id === updatedListing.id) {
+        return updatedListing
+      } else {
+        return listing
+      }
+    })
+    setListings(updatedListings)
+  }
+
+  function handleListingDelete(deletedListing) {
+    setListings(listings.filter(listing => listing.id !== deletedListing.id))
+  }
 
   return (
     <div>
@@ -44,17 +68,21 @@ function App() {
         <Switch>
           <Route path="/" exact>
             <Home 
-              listings={listings}
               categories={categories}
+              listings={listings}
             />
           </Route>
           <Route path="/my_listings" exact>
-            <MyListings 
-              listings={listings}
-              setListings={setListings}
-              categories={categories}
-              setCategories={setCategories}
-            />
+            {user ? 
+              <MyListings
+                categories={categories}
+                setCategories={setCategories}
+                onEditListingSubmit={handleEditListingSubmit}
+                onAddListingSubmit={handleAddListingSubmit}
+                onAddCategorySubmit={handleAddCategorySubmit}
+                onListingDelete={handleListingDelete}
+              /> : null
+            }
           </Route>
           <Route path="/signup" exact>
             <SignUp />

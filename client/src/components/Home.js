@@ -3,7 +3,7 @@ import ListingCard from './ListingCard';
 import { Stack } from '@mui/material';
 import CategoryFilter from './CategoryFilter';
 
-function Home({ listings, categories }) {
+function Home({ categories, listings }) {
 
   const [filterBy, setFilterBy] = useState('All')
 
@@ -11,14 +11,14 @@ function Home({ listings, categories }) {
     if (filterBy === "All") {
       return true;
     } else {
-      return listing.category.id === filterBy;
+      return listing.category_id === filterBy;
     }
   });
 
   const listingCards = listingsToDisplay.map((listing) => {
     return(
       <ListingCard
-        key={listing.content}
+        key={listing.id}
         listing={listing}
       />
     )

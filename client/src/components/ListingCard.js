@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 
 function ListingCard({ listing, children }) {
 
-  const {title, image, content, price, category} = listing
+  const {title, image, content, price} = listing
 
   return (
     <Card sx={{ maxWidth: 345, margin: "15px" }}>
@@ -17,9 +17,6 @@ function ListingCard({ listing, children }) {
         image={image}
       />
       <CardContent>
-      <Typography variant="overline" color="text.secondary">
-          {category.name}
-        </Typography>
         <Typography gutterBottom variant="h5" component="div">
           {title}
         </Typography>

@@ -16,7 +16,7 @@ puts "Seeding Book Listings..."
     content: Faker::Lorem.paragraph,
     price: rand(5..60), # random number between 0 and 60
     user_id: rand(1..2),
-    category_id: 2
+    category_id: 1
   )
 end
 
@@ -32,7 +32,7 @@ puts "Seeding Camera Listings..."
     content: Faker::Lorem.paragraph,
     price: rand(5..60), # random number between 0 and 60
     user_id: rand(1..2),
-    category_id: 1
+    category_id: 2
   )
 end
 
@@ -48,7 +48,7 @@ puts "Seeding Car Listings..."
     content: Faker::Lorem.paragraph,
     price: rand(5..60), # random number between 0 and 60
     user_id: rand(1..2),
-    category_id: 4
+    category_id: 3
   )
 end
 

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import { TextField, Button } from '@mui/material';
 import Modal from '@mui/material/Modal';
@@ -6,7 +6,6 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
-import { UserContext } from '../context/user';
 import AddCategoryForm from './AddCategoryForm';
 
 const style = {
@@ -23,9 +22,7 @@ const style = {
 
 function AddListingForm({ addFormOpen, handleClose, onAddListingSubmit, categories, onAddCategorySubmit }){
 
-  const { user } = useContext(UserContext)
-
-  const [formData, setFormData] = useState({category_id: '', user_id: user.id})
+  const [formData, setFormData] = useState({category_id: ''})
   const [errors, setErrors] = useState([])
 
   const menuItems = categories.map((category) => {
