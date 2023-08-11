@@ -6,7 +6,7 @@ class CategoriesController < ApplicationController
 
   def index
     categories = Category.all.order('name')
-    render json: categories
+    render json: categories, include: [:listings, 'listings.user']
   end
   
   def create

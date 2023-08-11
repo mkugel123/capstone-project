@@ -1,6 +1,6 @@
 class ListingsController < ApplicationController
 
-  skip_before_action :authorized, only: [:index]
+  skip_before_action :authorized, only: [:index, :less_than_price]
 
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
@@ -19,7 +19,6 @@ class ListingsController < ApplicationController
     listing.user_id = session[:user_id]
     listing.save!
     render json: listing, status: :created
-
   end
 
   def update
@@ -41,6 +40,25 @@ class ListingsController < ApplicationController
       render json: {errors: ["This post does not belong to you"]}, status: :unauthorized
     end
   end
+
+  def less_than_price
+    params_price = params[:price]
+    listings_under_price = Listing.where("price < #{params_price}")
+    user_of_listings = listings_under_price.map{ |listing| listing.user }
+    if listings_under_price.length < 1
+      render json: {error: "no listings under that price"}
+    else
+      render json: user_of_listings
+    end
+  end
+
+#   array = ["a", "b", "c"]
+
+# array.map { |string| string.upcase }
+
+# ["A", "B", "C"]
+
+  # Book.where("LENGTH(title) > 20")
 
   private
 

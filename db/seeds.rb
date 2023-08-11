@@ -6,6 +6,14 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+puts "Seeding Categories..."
+
+  Category.create(name: "Books")
+  Category.create(name: "Cameras")
+  Category.create(name: "Cars")
+
+puts "Finished Seeding Categories"
+
 puts "Seeding Book Listings..."
 
 5.times do

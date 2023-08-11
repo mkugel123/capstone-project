@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ListingCard from './ListingCard';
 import { Stack } from '@mui/material';
 import CategoryFilter from './CategoryFilter';
+import Avatar from '@mui/material/Avatar';
 
 function Home({ categories, listings }) {
 
@@ -20,7 +21,11 @@ function Home({ categories, listings }) {
       <ListingCard
         key={listing.id}
         listing={listing}
-      />
+      >
+        <Avatar>
+          {listing.user.username[0]}
+        </Avatar>
+      </ListingCard>
     )
   })
 

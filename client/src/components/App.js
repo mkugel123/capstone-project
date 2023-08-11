@@ -35,7 +35,7 @@ function App() {
         res.json().then(user => setUser(user))
       }
     })
-  }, [])
+  }, [listings])
 
   function handleAddCategorySubmit(newCategory) {
     const updatedCategories = [...categories, newCategory]
