@@ -5,6 +5,7 @@ class User < ApplicationRecord
   validates :password, length: { in: 6..20 }
 
   has_secure_password
+  has_many :reviews
   has_many :listings
   has_many :categories, through: :listings
 

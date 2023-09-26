@@ -9,8 +9,10 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { UserContext } from '../context/user';
+// import { UserContext } from '../context/user';
 import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { login } from '../features/userSlice'
 
 
 const theme = createTheme();
@@ -23,11 +25,13 @@ export default function SignUp() {
     password_confirmation: ""
   })
 
+  const dispatch = useDispatch();
+
   const history = useHistory()
 
   const [errors, setErrors] = useState([])
 
-  const { setUser } = useContext(UserContext)
+  // const { setUser } = useContext(UserContext)
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -40,7 +44,8 @@ export default function SignUp() {
     })
     .then((response) => {
       if (response.ok) {
-        response.json().then((newUser) => setUser(newUser)).then(history.push('/'));
+        response.json().then((newUser) => dispatch(login(newUser))).then(history.push('/'));
+        // response.json().then((newUser) => setUser(newUser)).then(history.push('/'));
       } else {
         response.json().then((errorData) => setErrors(errorData.errors));
       }

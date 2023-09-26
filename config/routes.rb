@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :reviews
   resources :categories, only: [:index, :create]
   resources :listings
 

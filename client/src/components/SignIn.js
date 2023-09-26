@@ -9,8 +9,10 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { UserContext } from '../context/user';
+// import { UserContext } from '../context/user';
 import { Link, useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { login } from '../features/userSlice'
 
 
 const theme = createTheme();
@@ -22,11 +24,13 @@ export default function SignIn() {
     password: ""
   })
 
+  const dispatch = useDispatch();
+
   const history = useHistory()
 
   const [errors, setErrors] = useState([])
 
-  const { setUser } = useContext(UserContext)
+  // const { setUser } = useContext(UserContext)
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -39,7 +43,8 @@ export default function SignIn() {
     })
     .then((response) => {
       if (response.ok) {
-        response.json().then((user) => setUser(user)).then(history.push("/my_listings"));
+        response.json().then((user) => dispatch(login(user))).then(history.push("/my_listings"));
+        // response.json().then((user) => setUser(user)).then(history.push("/my_listings")); //undo
       } else {
         response.json().then((errorData) => setErrors(errorData.errors));
       }

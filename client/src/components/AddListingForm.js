@@ -40,11 +40,9 @@ function AddListingForm({ addFormOpen, handleClose, onAddListingSubmit, categori
 
   function handleSubmit(e) {
     e.preventDefault()
+
     fetch("/listings", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
       body: JSON.stringify(formData),
     })
     .then((response) => {

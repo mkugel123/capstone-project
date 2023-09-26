@@ -4,16 +4,25 @@ import Tab from '@mui/material/Tab';
 import { Button } from '@mui/material';
 import { UserContext } from '../context/user';
 import { Link, useHistory } from 'react-router-dom'
+import { useSelector } from 'react-redux';
+import { selectUser, logout } from '../features/userSlice';
+import { useDispatch } from 'react-redux';
+
 
 export default function NavBar() {
 
-  const { user, setUser } = React.useContext(UserContext)
+  const user = useSelector(selectUser);
+
+  const dispatch = useDispatch()
+
+
+  // const { user, setUser } = React.useContext(UserContext)
   const history = useHistory()
 
   function handleLogOut() {
     fetch('/logout', {method: 'DELETE'})
-    .then(setUser(null))
-    .then(history.push("/"))
+    .then(() => dispatch(logout()))
+    .then(() => history.push("/"))
   }
 
   return (

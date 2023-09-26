@@ -3,8 +3,18 @@ import ListingCard from './ListingCard';
 import { Stack } from '@mui/material';
 import CategoryFilter from './CategoryFilter';
 import Avatar from '@mui/material/Avatar';
+import { Link } from 'react-router-dom'
 
-function Home({ categories, listings }) {
+
+function Home({ categories, listings, setReviews, setSelectedUserId }) {
+
+
+  function handleClick(user) {
+
+    console.log(user.id)
+    setSelectedUserId(user.id)
+    setReviews(user.reviews)
+  }
 
   const [filterBy, setFilterBy] = useState('All')
 
@@ -22,7 +32,7 @@ function Home({ categories, listings }) {
         key={listing.id}
         listing={listing}
       >
-        <Avatar>
+        <Avatar component={Link} to={"/reviews"} onClick={()=>handleClick(listing.user)}>
           {listing.user.username[0]}
         </Avatar>
       </ListingCard>

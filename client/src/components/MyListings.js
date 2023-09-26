@@ -5,10 +5,14 @@ import CategoryFilter from './CategoryFilter';
 import EditListingForm from './EditListingForm';
 import AddListingForm from './AddListingForm';
 import { UserContext } from '../context/user';
+import { selectUser } from '../features/userSlice';
+import { useSelector } from 'react-redux';
 
 function MyListings({ categories, onAddCategorySubmit, onAddListingSubmit, onEditListingSubmit, onListingDelete }) {
 
-  const {user} = useContext(UserContext)
+  // const {user} = useContext(UserContext)
+  const user = useSelector(selectUser);
+
 
   const [myCategories, setMyCategories] = useState(user.categories)
 
@@ -84,6 +88,7 @@ function MyListings({ categories, onAddCategorySubmit, onAddListingSubmit, onEdi
 
   //updates state of all listings to include new listing
   function handleAddListingSubmit(newListing) {
+    console.log(newListing)
     onAddListingSubmit(newListing)
     const updatedListings = [...myListings, newListing]
     setMyListings(updatedListings)
