@@ -13,6 +13,12 @@ function MyListings({ categories, onAddCategorySubmit, onAddListingSubmit, onEdi
   // const {user} = useContext(UserContext)
   const user = useSelector(selectUser);
 
+  const uniqueCategories = Object.values(
+    categories.reduce((acc, category) => {
+      acc[category.name] = category;
+      return acc;
+    }, {})
+  );
 
   const [myCategories, setMyCategories] = useState(user.categories)
 
@@ -117,7 +123,7 @@ function MyListings({ categories, onAddCategorySubmit, onAddListingSubmit, onEdi
     <>
       <h1 style={{textAlign: "center"}}>My Listings</h1>
       <CategoryFilter 
-        categories={myCategories}
+        categories={uniqueCategories}
         filterBy={filterBy}
         setFilterBy={setFilterBy}
       />
