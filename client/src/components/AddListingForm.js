@@ -36,6 +36,7 @@ function AddListingForm({ addFormOpen, handleClose, onAddListingSubmit, categori
       ...formData,
       [e.target.name]: e.target.value
     })
+    console.log(formData)
   }
 
   function handleSubmit(e) {
@@ -43,6 +44,9 @@ function AddListingForm({ addFormOpen, handleClose, onAddListingSubmit, categori
 
     fetch("/listings", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(formData),
     })
     .then((response) => {
